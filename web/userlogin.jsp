@@ -11,6 +11,9 @@
         
         
         <script type="javascript">
+            
+            
+            
             function check(){
 			var uname = document.all.uname.value;
 			var upwd = document.all.upwd.value;
@@ -26,7 +29,7 @@
 		}
         </script>
     </head>
-    <body>
+    <body onload="loadLogIn()">
     <center>
         <form action="ManageLogin" method="post" id="mf">
             <table>

@@ -5,25 +5,22 @@
 package Visit.Control;
 
 import java.io.IOException;
-import java.util.List;
+import java.io.PrintWriter;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import Visit.Entity.User;
 
 /**
  *
  * @author 猫的鱼儿
  */
-public class ManageLogin extends HttpServlet {
+public class GetAllInfo extends HttpServlet {
 
     @PersistenceContext(unitName="Web_VisitPU")
-    EntityManager em;
-    
+    EntityManager em; 
     
     /**
      * Processes requests for both HTTP
@@ -37,19 +34,7 @@ public class ManageLogin extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        String userName = request.getParameter("userName");
-        String userPwd = request.getParameter("userPwd");
-        
-        System.out.println("name="+userName+";pwd="+userPwd);
-        
-        //request.setAttribute("checkuserinfo", CheckUserInfo(userName,userPwd));
-        if(CheckUserInfo(userName,userPwd)){
-            request.getRequestDispatcher("success.jsp").forward(request, response);
-        }else{
-            request.setAttribute("error_type", "userlogin");
-            request.getRequestDispatcher("error.jsp").forward(request, response);
-        }
+       
         
     }
 
@@ -93,15 +78,4 @@ public class ManageLogin extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
-    private boolean CheckUserInfo(String userName,String userPwd) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        
-        Query query=em.createNamedQuery("User.checkUserInfo");
-        query.setParameter("userName", userName);
-        query.setParameter("userPwd", userPwd);
-        if(query.getResultList().isEmpty())
-            return false;
-        else return true;
-    }
 }

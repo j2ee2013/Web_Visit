@@ -24,56 +24,41 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "user")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u"),
     @NamedQuery(name = "User.checkUserInfo", query = "SELECT u FROM User u WHERE u.userName = :userName and u.userPwd = :userPwd"),
-    @NamedQuery(name = "User.findByUserId", query = "SELECT u FROM User u WHERE u.userId = :userId"),
+    @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u"),
     @NamedQuery(name = "User.findByUserName", query = "SELECT u FROM User u WHERE u.userName = :userName"),
     @NamedQuery(name = "User.findByUserPwd", query = "SELECT u FROM User u WHERE u.userPwd = :userPwd"),
-    @NamedQuery(name = "User.findByAuthority", query = "SELECT u FROM User u WHERE u.authority = :authority")})
+    @NamedQuery(name = "User.findByUserPermission", query = "SELECT u FROM User u WHERE u.userPermission = :userPermission")})
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 6)
-    @Column(name = "user_id")
-    private String userId;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
+    @Size(min = 1, max = 20)
     @Column(name = "user_name")
     private String userName;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 6)
+    @Size(min = 1, max = 20)
     @Column(name = "user_pwd")
     private String userPwd;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 2)
-    @Column(name = "Authority")
-    private String authority;
+    @Size(min = 1, max = 10)
+    @Column(name = "user_permission")
+    private String userPermission;
 
     public User() {
     }
 
-    public User(String userId) {
-        this.userId = userId;
+    public User(String userName) {
+        this.userName = userName;
     }
 
-    public User(String userId, String userName, String userPwd, String authority) {
-        this.userId = userId;
+    public User(String userName, String userPwd, String userPermission) {
         this.userName = userName;
         this.userPwd = userPwd;
-        this.authority = authority;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
+        this.userPermission = userPermission;
     }
 
     public String getUserName() {
@@ -92,18 +77,18 @@ public class User implements Serializable {
         this.userPwd = userPwd;
     }
 
-    public String getAuthority() {
-        return authority;
+    public String getUserPermission() {
+        return userPermission;
     }
 
-    public void setAuthority(String authority) {
-        this.authority = authority;
+    public void setUserPermission(String userPermission) {
+        this.userPermission = userPermission;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (userId != null ? userId.hashCode() : 0);
+        hash += (userName != null ? userName.hashCode() : 0);
         return hash;
     }
 
@@ -114,7 +99,7 @@ public class User implements Serializable {
             return false;
         }
         User other = (User) object;
-        if ((this.userId == null && other.userId != null) || (this.userId != null && !this.userId.equals(other.userId))) {
+        if ((this.userName == null && other.userName != null) || (this.userName != null && !this.userName.equals(other.userName))) {
             return false;
         }
         return true;
@@ -122,7 +107,7 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "Visit.Entity.User[ userId=" + userId + " ]";
+        return "Visit.Entity.User[ userName=" + userName + " ]";
     }
     
 }

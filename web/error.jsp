@@ -30,7 +30,7 @@
             </script>
     </head>
     <c:choose>
-        <c:when test="${requestScope.error_type=='unexistUser'}">
+        <c:when test="${requestScope.error_type=='userlogin'}">
             <script>
                 unexistUser();
             </script>
